@@ -25,8 +25,8 @@ class Position
       @col = col
     else
       # Position.new('f7')のような呼び出し
-      @row = ROW.index(row_or_cell_ref[1])
-      @col = COL.index(row_or_cell_ref[0])
+      @row = COL.index(row_or_cell_ref[0])
+      @col = ROW.index(row_or_cell_ref[1])
     end
   end
 
@@ -41,7 +41,7 @@ class Position
   def stone_color(board)
     return nil if out_of_board?
 
-    board[row][col]
+    board[col][row]
   end
 
   def to_cell_ref
@@ -53,12 +53,12 @@ class Position
   def next_position(direction)
     case direction
     when TOP_LEFT     then Position.new(row - 1, col - 1)
-    when TOP          then Position.new(row - 1, col)
-    when TOP_RIGHT    then Position.new(row - 1, col + 1)
-    when LEFT         then Position.new(row,     col - 1)
-    when RIGHT        then Position.new(row,     col + 1)
-    when BOTTOM_LEFT  then Position.new(row + 1, col - 1)
-    when BOTTOM       then Position.new(row + 1, col)
+    when TOP          then Position.new(row, col - 1)
+    when TOP_RIGHT    then Position.new(row + 1, col - 1)
+    when LEFT         then Position.new(row - 1,     col)
+    when RIGHT        then Position.new(row + 1,     col)
+    when BOTTOM_LEFT  then Position.new(row - 1, col + 1)
+    when BOTTOM       then Position.new(row, col + 1)
     when BOTTOM_RIGHT then Position.new(row + 1, col + 1)
     else raise 'Unknown direction'
     end

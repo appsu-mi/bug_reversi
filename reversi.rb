@@ -18,8 +18,8 @@ class Reversi
 
       if finished?(@board)
         puts '試合終了'
-        puts "白○:#{count_stone(@board, WHITE_STONE)}"
-        puts "黒●:#{count_stone(@board, BLACK_STONE)}"
+        puts "白●:#{count_stone(@board, WHITE_STONE)}"
+        puts "黒○:#{count_stone(@board, BLACK_STONE)}"
         break
       end
 
@@ -28,8 +28,7 @@ class Reversi
         toggle_stone
         next
       end
-
-      print "command? (#{@current_stone == WHITE_STONE ? '白○' : '黒●'}) > "
+      print "command? (#{@current_stone == WHITE_STONE ? '白●' : '黒○'}) > "
       command = gets.chomp
       break if QUIT_COMMANDS.include?(command)
 

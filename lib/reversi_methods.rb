@@ -23,8 +23,8 @@ module ReversiMethods
       print Position::ROW[i]
       row.each do |cell|
         case cell
-        when WHITE_STONE then print ' ○'
-        when BLACK_STONE then print ' ●'
+        when BLACK_STONE then print ' ○'
+        when WHITE_STONE then print ' ●'
         else print ' -'
         end
       end
@@ -61,12 +61,14 @@ module ReversiMethods
   end
 
   def turn(board, target_pos, attack_stone_color, direction)
-    return false if target_pos.out_of_board?
-    return false if target_pos.stone_color(board) == attack_stone_color
+    case target_pos.stone_color(board)
+    when attack_stone_color, BLANK_CELL, nil
+      return false
+    end
 
     next_pos = target_pos.next_position(direction)
     if (next_pos.stone_color(board) == attack_stone_color) || turn(board, next_pos, attack_stone_color, direction)
-      board[target_pos.row][target_pos.col] = attack_stone_color
+      board[target_pos.col][target_pos.row] = attack_stone_color
       true
     else
       false
@@ -86,6 +88,7 @@ module ReversiMethods
         return true if put_stone(board, position.to_cell_ref, attack_stone_color, dry_run: true)
       end
     end
+    false
   end
 
   def count_stone(board, stone_color)
